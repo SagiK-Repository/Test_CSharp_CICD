@@ -1,0 +1,48 @@
+name: Build and Deploy
+
+on:
+  push:
+    branches:
+      - 'master*'
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+      
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 5.0.x
+        
+    - name: Build and Test
+      run: |
+        cd CSharpTest
+        dotnet build
+        dotnet test ./UnitTestProject1/UnitTestProject1.csproj
+
+    - name: Merge commit message
+      run: |
+        git log -1 --pretty=%B > message.txt
+        echo "::set-output name=message::$(cat message.txt)"
+      id: merge_message
+
+    - name: Create release tag
+      if: startsWith(steps.merge_message.outputs.message, 'Release')
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ steps.merge_message.outputs.message }}
+        release_name: Release ${{ steps.merge_message.outputs.message }} - ${{ github.sha }}
+        body: ${{ steps.merge_message.outputs.message }}
+        draft: false
+        prerelease: false
+        
+    - name: Deploy to production
+      if: startsWith(steps.merge_message.outputs.message, 'Release')
+      run: |
+        # Add deployment steps here
