@@ -7,12 +7,17 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest # 실행할 runner 환경 지정
+    runs-on: windows-latest # 실행할 runner 환경 지정
     
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
       
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 4.7.x
+
     - name: Build and Test
       run: |
         cd CSharpTest
@@ -49,4 +54,4 @@ jobs:
     - name: Deploy to production
       if: startsWith(steps.merge_message.outputs.message, 'Release')
       run: |
-        echo "End All Actions"
+        echo "End All Actions."
