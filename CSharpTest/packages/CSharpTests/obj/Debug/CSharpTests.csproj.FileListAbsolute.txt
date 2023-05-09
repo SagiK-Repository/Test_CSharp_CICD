@@ -1,0 +1,8 @@
+D:\Git_Hub_Repository\Test_CSharp_CICD\CSharpTest\CSharpTests\bin\Debug\CSharpTests.exe.config
+D:\Git_Hub_Repository\Test_CSharp_CICD\CSharpTest\CSharpTests\bin\Debug\CSharpTests.exe
+D:\Git_Hub_Repository\Test_CSharp_CICD\CSharpTest\CSharpTests\bin\Debug\CSharpTests.pdb
+D:\Git_Hub_Repository\Test_CSharp_CICD\CSharpTest\CSharpTests\obj\Debug\CSharpTests.csproj.AssemblyReference.cache
+D:\Git_Hub_Repository\Test_CSharp_CICD\CSharpTest\CSharpTests\obj\Debug\CSharpTests.csproj.SuggestedBindingRedirects.cache
+D:\Git_Hub_Repository\Test_CSharp_CICD\CSharpTest\CSharpTests\obj\Debug\CSharpTests.csproj.CoreCompileInputs.cache
+D:\Git_Hub_Repository\Test_CSharp_CICD\CSharpTest\CSharpTests\obj\Debug\CSharpTests.exe
+D:\Git_Hub_Repository\Test_CSharp_CICD\CSharpTest\CSharpTests\obj\Debug\CSharpTests.pdb
