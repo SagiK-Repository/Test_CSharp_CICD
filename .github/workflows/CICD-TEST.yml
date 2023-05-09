@@ -21,6 +21,8 @@ jobs:
         cd CSharpTest
         dotnet build CSharpTest.sln
         dotnet test ./UnitTestProject1/UnitTestProject1.csproj
+      # 빌드 및 테스트 실패 시 바로 종료
+      if: ${{ job.status == 'success' }}
 
     - name: Merge commit message
       run: |
@@ -28,14 +30,21 @@ jobs:
         echo "::set-output name=message::$(cat message.txt)"
       id: merge_message
 
+    # release 태그로부터 version 정보 추출하여 output으로 설정
+    - name: Get Release Version
+      if: startsWith(steps.merge_message.outputs.message, 'Release')
+      id: extract_release_version # release 버전 추출
+      run: |
+        echo "::set-output name=version::$(echo ${{ steps.merge_message.outputs.message }} | sed 's/Release //')"
+
     - name: Create release tag
       if: startsWith(steps.merge_message.outputs.message, 'Release')
-      uses: actions/create-release@v1
+      uses: actions/create-release@v1 
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        tag_name: ${{ steps.merge_message.outputs.message }}
-        release_name: Release ${{ steps.merge_message.outputs.message }} - ${{ github.sha }}
+        tag_name: ${{ steps.extract_release_version.outputs.version }}
+        release_name: Release v${{ github.run_number }}
         body: ${{ steps.merge_message.outputs.message }}
         draft: false
         prerelease: false
