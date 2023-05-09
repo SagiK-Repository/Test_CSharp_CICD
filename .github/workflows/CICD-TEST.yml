@@ -33,9 +33,9 @@ jobs:
     # release 태그로부터 version 정보 추출하여 output으로 설정
     - name: Get Release Version
       if: startsWith(steps.merge_message.outputs.message, 'Release')
-      id: extract_release_version # release 버전 추출
       run: |
-        echo "::set-output name=version::$((${steps.merge_message.outputs.message} -replace 'Release ', ''))"
+        echo "::set-output name=version::$((${{steps.merge_message.outputs.message}} -replace 'Release ', ''))"
+      id: extract_release_version
 
     - name: Create release tag
       if: startsWith(steps.merge_message.outputs.message, 'Release')
