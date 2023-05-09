@@ -27,7 +27,7 @@ jobs:
     - name: Merge commit message
       run: |
         git log -1 --pretty=%B > message.txt
-        echo "::set-output name=message::$(cat message.txt)"
+        echo "::set-output name=message::$(Get-Content message.txt)"
       id: merge_message
 
     # release 태그로부터 version 정보 추출하여 output으로 설정
@@ -35,16 +35,16 @@ jobs:
       if: startsWith(steps.merge_message.outputs.message, 'Release')
       id: extract_release_version # release 버전 추출
       run: |
-        echo "::set-output name=version::$(echo ${{ steps.merge_message.outputs.message }} | ForEach-Object { $_ -replace 'Release ', '' })"
+        echo "::set-output name=version::$((${steps.merge_message.outputs.message} -replace 'Release ', ''))"
 
     - name: Create release tag
-      if: startsWith(steps.merge_message.outputs.message, 'Release') # startsWith 함수를 사용하여 message가 'Release'로 시작하는지 확인하고, tag 생성
+      if: startsWith(steps.merge_message.outputs.message, 'Release')
       uses: actions/create-release@v1 
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        tag_name: ${{ steps.extract_release_version.outputs.version }} # 반드시 v0.1.1와 같이 v 접두사가 들어가야 한다.
-        release_name: Release v${{ github.run_number }}
+        tag_name: ${{ steps.extract_release_version.outputs.version }}
+        release_name: Release ${{ steps.extract_release_version.outputs.version }} v${{ github.run_number }}
         body: ${{ steps.merge_message.outputs.message }}
         draft: false
         prerelease: false
