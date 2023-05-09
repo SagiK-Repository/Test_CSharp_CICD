@@ -35,7 +35,7 @@ jobs:
       if: startsWith(steps.merge_message.outputs.message, 'Release')
       id: extract_release_version # release 버전 추출
       run: |
-        echo "::set-output name=version::$(echo ${{ steps.merge_message.outputs.message }} | %{ $_ -replace "Release ", "" } )"
+        echo "::set-output name=version::$(${{ steps.merge_message.outputs.message }}.Replace('Release ', ''))"
 
     - name: Create release tag
       if: startsWith(steps.merge_message.outputs.message, 'Release') # startsWith 함수를 사용하여 message가 'Release'로 시작하는지 확인하고, tag 생성
