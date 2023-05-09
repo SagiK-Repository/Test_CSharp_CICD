@@ -52,4 +52,4 @@ jobs:
     - name: Deploy to production
       if: startsWith(steps.merge_message.outputs.message, 'Release')
       run: |
-        echo "End All"
+        echo "End All!"
