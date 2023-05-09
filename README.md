@@ -5,6 +5,9 @@ C#으로 구성한 sln을 CI/CD를 통해 자동 빌드 및 테스트 하여 배
 
 ### 목표
 - [x] : 1. 목표 선정
+- [ ] : 2. 프로젝트 구성
+- [ ] : 3. CICD 구성
+- [ ] : 4. Build & Deploy Test
 
 ### 제작자
 [@SAgiKPJH](https://github.com/SAgiKPJH)
