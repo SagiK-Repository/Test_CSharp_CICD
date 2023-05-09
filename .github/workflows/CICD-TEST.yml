@@ -16,12 +16,12 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 5.0.x
+        dotnet-version: 4.7
         
     - name: Build and Test
       run: |
         cd CSharpTest
-        dotnet build
+        dotnet build CSharpTest.sln
         dotnet test ./UnitTestProject1/UnitTestProject1.csproj
 
     - name: Merge commit message
@@ -45,4 +45,4 @@ jobs:
     - name: Deploy to production
       if: startsWith(steps.merge_message.outputs.message, 'Release')
       run: |
-        # Add deployment steps here
+        echo "End All"
