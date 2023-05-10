@@ -34,7 +34,7 @@ jobs:
     - name: Get Release Version
       if: startsWith(steps.merge_message.outputs.message, 'Release')
       run: |
-        echo "::set-output name=version::$((${{steps.merge_message.outputs.message}} -replace 'Release ', ''))"
+        echo "::set-output name=version::$(("${{steps.merge_message.outputs.message}}" -replace 'Release ', ''))"
       id: extract_release_version
 
     - name: Create release tag
