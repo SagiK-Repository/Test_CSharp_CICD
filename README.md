@@ -5,7 +5,7 @@ C#으로 구성한 sln을 CI/CD를 통해 자동 빌드 및 테스트 하여 배
 
 ### 목표
 - [x] : 1. 목표 선정
-- [ ] : 2. 프로젝트 구성
+- [x] : 2. 프로젝트 구성
 - [ ] : 3. CICD 구성
 - [ ] : 4. Build & Deploy Test
 
@@ -49,3 +49,41 @@ C#으로 구성한 sln을 CI/CD를 통해 자동 빌드 및 테스트 하여 배
    - 결과 문제 없으면 Main 브랜치에 정해진 특정 파일(dll, exe 파일 따위)를 Merge합니다.
 
 * 다양하게 CICD를 구성해볼 수 있는데, 여기서는 1번 방법을 활용해봅니다.
+
+
+<br><br>
+
+# 2. 프로젝트 구성
+
+- 다음을 만족하는 프로젝트를 구성한다.
+
+1. C# 코드로 작성된 프로젝트
+2. .NET Framework Version : 4.7
+3. C# 코드에 대한 Unit Test 프로젝트
+4. xUnit, FluentAssertions 를 활용
+5. 간단한 프로젝트이어야 한다.
+
+- 자세한 내용은 Repository에서 확인할 수 있다.  
+- 사전에 Build 및 Test를 진행해 보았다.
+  <img src="https://user-images.githubusercontent.com/66783849/237279443-cd14eab5-9f9a-4922-8a35-ba43538a4d6d.png"/>  
+  <img src="https://user-images.githubusercontent.com/66783849/237279545-d55ff204-6135-40c3-8233-db3c2d37e495.png"/>  
+  <img src="https://user-images.githubusercontent.com/66783849/237279590-07041f5b-d2d8-41c9-b8aa-9515cef6e1d7.png"/>  
+
+* CLI으로도 정상동작하는지 미리 확인한다.  
+  ```bash
+  # 솔루션 빌드
+  docker build project.sln
+  
+  # 현재 폴더에 존재하면 생략 가능
+  docker build
+  
+  
+  # Test
+  dotnet test project.csproj
+  ```  
+  <img src="https://user-images.githubusercontent.com/66783849/237280074-524ad57a-f825-4b22-b072-6fc24502b1f5.png"/>  
+  
+  
+<br><br>
+
+# 3. CICD 
