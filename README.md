@@ -35,17 +35,17 @@ C#으로 구성한 sln을 CI/CD를 통해 자동 빌드 및 테스트 하여 배
 ### 다음과 같은 흐름을 구성합니다.
 
 1. 기본적인 빌드 Test 후 Release
-  - Main 브랜치가 존재합니다.
-  - Main 브랜치에 "Release v0.0.0"으로 특정 규칙에 맞도록 Commit을 합니다.
-  - Main Repository 안에 존재하는 sln파일을 빌드합니다.
-  - Unit Test Project도 Test 합니다.
-  - 결과 문제 없으면 기입한 Tag에 맞춰서 Release를 진행합니다.
+   - Main 브랜치가 존재합니다.
+   - Main 브랜치에 "Release v0.0.0"으로 특정 규칙에 맞도록 Commit을 합니다.
+   - Main Repository 안에 존재하는 sln파일을 빌드합니다.
+   - Unit Test Project도 Test 합니다.
+   - 결과 문제 없으면 기입한 Tag에 맞춰서 Release를 진행합니다.
 2. 실제 상황을 토대로 구성한 Release
-  - Main 브랜치와 Develop 브랜치가 존재합니다.
-    - Main 브랜치는 Release 전용이고, Develop 브랜치는 개발 전용입니다.
-  - Develop에서 개발 후 "Relese v0.0.0"으로 특정 규칙에 맞도록 Commit 합니다.
-  - Develop Repository 안에 존재하는 sln파일을 빌드합니다.
-  - Unit Test Project도 Test 합니다.
-  - 결과 문제 없으면 Main 브랜치에 정해진 특정 파일(dll, exe 파일 따위)를 Merge합니다.
+   - Main 브랜치와 Develop 브랜치가 존재합니다.
+     - Main 브랜치는 Release 전용이고, Develop 브랜치는 개발 전용입니다.
+   - Develop에서 개발 후 "Relese v0.0.0"으로 특정 규칙에 맞도록 Commit 합니다.
+   - Develop Repository 안에 존재하는 sln파일을 빌드합니다.
+   - Unit Test Project도 Test 합니다.
+   - 결과 문제 없으면 Main 브랜치에 정해진 특정 파일(dll, exe 파일 따위)를 Merge합니다.
 
 * 다양하게 CICD를 구성해볼 수 있는데, 여기서는 1번 방법을 활용해봅니다.
