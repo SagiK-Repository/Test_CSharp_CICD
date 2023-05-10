@@ -49,8 +49,3 @@ jobs:
         body: ${{ steps.merge_message.outputs.message }}
         draft: false
         prerelease: false
-
-    - name: Deploy to production
-      if: startsWith(steps.merge_message.outputs.message, 'Release') && ${{ job.status == 'success' }}
-      run: |
-        echo "End All Actions."
