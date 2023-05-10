@@ -16,6 +16,15 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v1
 
+    - name: Merge commit message
+      run: |
+        git log -1 --pretty=%B > message.txt
+        echo "::set-output name=message::$(Get-Content message.txt)"
+      id: merge_message
+
+    - name : Check commit Message
+      if: startsWith(steps.merge_message.outputs.message, 'Release')
+
     - name: Build and Test
       run: |
         cd CSharpTest
@@ -23,12 +32,6 @@ jobs:
         dotnet test ./UnitTestProject1/UnitTestProject1.csproj
       # 빌드 및 테스트 실패 시 바로 종료
       if: ${{ job.status == 'success' }}
-
-    - name: Merge commit message
-      run: |
-        git log -1 --pretty=%B > message.txt
-        echo "::set-output name=message::$(Get-Content message.txt)"
-      id: merge_message
 
     # release 태그로부터 version 정보 추출하여 output으로 설정
     - name: Get Release Version
