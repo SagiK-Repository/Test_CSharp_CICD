@@ -64,7 +64,7 @@ C#으로 구성한 sln을 CI/CD를 통해 자동 빌드 및 테스트 하여 배
 5. 간단한 프로젝트이어야 한다.
 
 - 자세한 내용은 Repository에서 확인할 수 있다.  
-- 사전에 Build 및 Test를 진행해 보았다.
+- 사전에 Build 및 Test를 진행해 보았다.  
   <img src="https://user-images.githubusercontent.com/66783849/237279443-cd14eab5-9f9a-4922-8a35-ba43538a4d6d.png"/>  
   <img src="https://user-images.githubusercontent.com/66783849/237279545-d55ff204-6135-40c3-8233-db3c2d37e495.png"/>  
   <img src="https://user-images.githubusercontent.com/66783849/237279590-07041f5b-d2d8-41c9-b8aa-9515cef6e1d7.png"/>  
