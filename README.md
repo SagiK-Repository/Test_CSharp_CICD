@@ -6,7 +6,7 @@ C#으로 구성한 sln을 CI/CD를 통해 자동 빌드 및 테스트 하여 배
 ### 목표
 - [x] : 1. 목표 선정
 - [x] : 2. 프로젝트 구성
-- [ ] : 3. CICD 구성
+- [x] : 3. CICD 구성
 - [ ] : 4. Build & Deploy Test
 
 ### 제작자
@@ -86,4 +86,61 @@ C#으로 구성한 sln을 CI/CD를 통해 자동 빌드 및 테스트 하여 배
   
 <br><br>
 
-# 3. CICD 
+# 3. CICD 구성
+
+- CICD를 다음과 같이 구성한다.
+  - window 환경을 사용하기에, 명령어를 Powershell에 맞게 구성한다.
+  ```yml
+  name: Build and Deploy Test
+  
+  on:
+    push:
+      branches:
+        - 'main'
+  
+  jobs:
+    build:
+      runs-on: windows-latest # 실행할 runner 환경 지정
+      
+      steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v1
+  
+      - name: Build and Test
+        run: |
+          cd CSharpTest
+          dotnet build CSharpTest.sln
+          dotnet test ./UnitTestProject1/UnitTestProject1.csproj
+        # 빌드 및 테스트 실패 시 바로 종료
+        if: ${{ job.status == 'success' }}
+  
+      - name: Merge commit message
+        run: |
+          git log -1 --pretty=%B > message.txt
+          echo "::set-output name=message::$(Get-Content message.txt)"
+        id: merge_message
+  
+      # release 태그로부터 version 정보 추출하여 output으로 설정
+      - name: Get Release Version
+        if: startsWith(steps.merge_message.outputs.message, 'Release')
+        run: |
+          echo "::set-output name=version::$(("${{steps.merge_message.outputs.message}}" -replace 'Release ', ''))"
+        id: extract_release_version
+  
+      - name: Create release tag
+        if: startsWith(steps.merge_message.outputs.message, 'Release')
+        uses: actions/create-release@v1 
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ steps.extract_release_version.outputs.version }}
+          release_name: Release ${{ steps.extract_release_version.outputs.version }} v${{ github.run_number }}
+          body: ${{ steps.merge_message.outputs.message }}
+          draft: false
+          prerelease: false
+  ```
+
+<br><br>
