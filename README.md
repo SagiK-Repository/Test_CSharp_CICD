@@ -1,4 +1,4 @@
-문서정보 : 2023.05.09.~ 작성, 작성자 [@SAgiKPJH](https://github.com/SAgiKPJH)
+문서정보 : 2023.05.09. ~ 05.10. 작성, 작성자 [@SAgiKPJH](https://github.com/SAgiKPJH)
 
 # Test_CSharp_CICD
 C#으로 구성한 sln을 CI/CD를 통해 자동 빌드 및 테스트 하여 배포하는 테스트를 만든다.
@@ -7,7 +7,7 @@ C#으로 구성한 sln을 CI/CD를 통해 자동 빌드 및 테스트 하여 배
 - [x] : 1. 목표 선정
 - [x] : 2. 프로젝트 구성
 - [x] : 3. CICD 구성
-- [ ] : 4. Build & Deploy Test
+- [x] : 4. Build & Deploy Test
 
 ### 제작자
 [@SAgiKPJH](https://github.com/SAgiKPJH)
@@ -109,6 +109,17 @@ C#으로 구성한 sln을 CI/CD를 통해 자동 빌드 및 테스트 하여 배
       - name: Setup .NET
         uses: actions/setup-dotnet@v1
   
+      - name: Merge commit message
+        run: |
+          git log -1 --pretty=%B > message.txt
+          echo "::set-output name=message::$(Get-Content message.txt)"
+        id: merge_message
+  
+      - name : Check commit Message
+        run: |
+          echo "Check commit Message"
+        if: startsWith(steps.merge_message.outputs.message, 'Release')
+  
       - name: Build and Test
         run: |
           cd CSharpTest
@@ -116,12 +127,6 @@ C#으로 구성한 sln을 CI/CD를 통해 자동 빌드 및 테스트 하여 배
           dotnet test ./UnitTestProject1/UnitTestProject1.csproj
         # 빌드 및 테스트 실패 시 바로 종료
         if: ${{ job.status == 'success' }}
-  
-      - name: Merge commit message
-        run: |
-          git log -1 --pretty=%B > message.txt
-          echo "::set-output name=message::$(Get-Content message.txt)"
-        id: merge_message
   
       # release 태그로부터 version 정보 추출하여 output으로 설정
       - name: Get Release Version
@@ -141,6 +146,21 @@ C#으로 구성한 sln을 CI/CD를 통해 자동 빌드 및 테스트 하여 배
           body: ${{ steps.merge_message.outputs.message }}
           draft: false
           prerelease: false
+  
+      - name: Deploy to production
+        if: startsWith(steps.merge_message.outputs.message, 'Release')
+        run: |
+          echo "End All Actions."
   ```
 
 <br><br>
+
+# 4. Build & Deploy Test
+
+- 실제 내용을 수정 후, "Release v0.0.2" 내용을 Commit 한다.  
+  <img src="https://user-images.githubusercontent.com/66783849/237281247-78bb568f-ed7f-4c6f-b2a7-2afb734a9c70.png"/>  
+  <img src="https://user-images.githubusercontent.com/66783849/237281430-e58d9ea8-ab1a-47bb-8ed5-3d183dd8790e.png"/>  
+  <img src="https://user-images.githubusercontent.com/66783849/237281521-6e321831-7a8d-4806-96bc-924eea70c95e.png"/>  
+- 실제로 Build & Test 후 Release를 하는 모습을 확인할 수 있다.
+  <img src="https://user-images.githubusercontent.com/66783849/237281644-7e44e590-fa48-4c5f-9d2c-c18c48892475.png"/>  
+  <img src="https://user-images.githubusercontent.com/66783849/237281680-0f88f29f-eca0-4551-9dd2-89fae06c3b05.png"/>  
