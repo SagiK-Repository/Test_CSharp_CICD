@@ -29,7 +29,7 @@ jobs:
         dotnet build CSharpTest.sln
         dotnet test ./UnitTestProject1/UnitTestProject1.csproj
       # 빌드 및 테스트 실패 시 바로 종료
-      if: ${{ job.status == 'success' }}
+      # if: ${{ job.status == 'success' }}
 
     # release 태그로부터 version 정보 추출하여 output으로 설정
     - name: Get Release Version
