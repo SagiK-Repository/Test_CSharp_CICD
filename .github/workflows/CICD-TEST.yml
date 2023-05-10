@@ -23,6 +23,8 @@ jobs:
       id: merge_message
 
     - name : Check commit Message
+      run: |
+        echo "Check commit Message"
       if: startsWith(steps.merge_message.outputs.message, 'Release')
 
     - name: Build and Test
