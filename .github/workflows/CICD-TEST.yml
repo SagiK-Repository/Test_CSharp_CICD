@@ -33,13 +33,13 @@ jobs:
 
     # release 태그로부터 version 정보 추출하여 output으로 설정
     - name: Get Release Version
-      if: startsWith(steps.merge_message.outputs.message, 'Release')
+      if: startsWith(steps.merge_message.outputs.message, 'Release') && job.status == 'success'
       run: |
         echo "::set-output name=version::$(("${{steps.merge_message.outputs.message}}" -replace 'Release ', ''))"
       id: extract_release_version
 
     - name: Create release tag
-      if: startsWith(steps.merge_message.outputs.message, 'Release')
+      if: startsWith(steps.merge_message.outputs.message, 'Release') && job.status == 'success'
       uses: actions/create-release@v1 
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
