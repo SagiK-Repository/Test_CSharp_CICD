@@ -115,28 +115,24 @@ C#으로 구성한 sln을 CI/CD를 통해 자동 빌드 및 테스트 하여 배
           echo "::set-output name=message::$(Get-Content message.txt)"
         id: merge_message
   
-      - name : Check commit Message
-        run: |
-          echo "Check commit Message"
-        if: startsWith(steps.merge_message.outputs.message, 'Release')
-  
       - name: Build and Test
+        if: startsWith(steps.merge_message.outputs.message, 'Release')
         run: |
           cd CSharpTest
           dotnet build CSharpTest.sln
           dotnet test ./UnitTestProject1/UnitTestProject1.csproj
         # 빌드 및 테스트 실패 시 바로 종료
-        if: ${{ job.status == 'success' }}
+        # if: ${{ job.status == 'success' }}
   
       # release 태그로부터 version 정보 추출하여 output으로 설정
       - name: Get Release Version
-        if: startsWith(steps.merge_message.outputs.message, 'Release')
+        if: startsWith(steps.merge_message.outputs.message, 'Release') && job.status == 'success'
         run: |
           echo "::set-output name=version::$(("${{steps.merge_message.outputs.message}}" -replace 'Release ', ''))"
         id: extract_release_version
   
       - name: Create release tag
-        if: startsWith(steps.merge_message.outputs.message, 'Release')
+        if: startsWith(steps.merge_message.outputs.message, 'Release') && job.status == 'success'
         uses: actions/create-release@v1 
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
