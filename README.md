@@ -46,7 +46,7 @@ C#으로 구성한 sln을 CI/CD를 통해 자동 빌드 및 테스트 하여 배
    - Develop에서 개발 후 "Relese v0.0.0"으로 특정 규칙에 맞도록 Commit 합니다.
    - Develop Repository 안에 존재하는 sln파일을 빌드합니다.
    - Unit Test Project도 Test 합니다.
-   - 결과 문제 없으면 Main 브랜치에 정해진 특정 파일(dll, exe 파일 따위)를 Merge합니다.
+   - 결과 문제 없으면 Main 브랜치에 정해진 특정 파일(dll, exe 파일 따위)를 배포합니다.
 
 * 다양하게 CICD를 구성해볼 수 있는데, 여기서는 1번 방법을 활용해봅니다.
 
