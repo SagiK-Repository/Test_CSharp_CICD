@@ -8,7 +8,7 @@ C#으로 구성한 sln을 CI/CD를 통해 자동 빌드 및 테스트 하여 배
 - [x] : 0. CI/CD?
 - [x] : 1. 목표 선정
 - [x] : 2. 프로젝트 구성
-- [x] : 3. CICD 구성
+- [x] : 3. yml 구성
 - [x] : 4. Build & Deploy Test
 
 ### 제작자
@@ -104,7 +104,7 @@ C#으로 구성한 sln을 CI/CD를 통해 자동 빌드 및 테스트 하여 배
   
 <br><br>
 
-# 3. CICD 구성
+# 3. yml 구성
 
 - CICD를 다음과 같이 구성한다.
   - window 환경을 사용하기에, 명령어를 Powershell에 맞게 구성한다.
