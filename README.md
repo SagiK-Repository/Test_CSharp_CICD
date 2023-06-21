@@ -107,6 +107,8 @@ C#으로 구성한 sln을 CI/CD를 통해 자동 빌드 및 테스트 하여 배
 # 3. YAML 구성
 
 - CI/CD는 yml(YAML)을 통해 구성할 수 있다.
+- GitHub의 경우 Repositiry의 `Actions`탭에 들어가 구성하거나, .yml 파일을 `.github/workflows`안에 구성합니다.  
+  <img src="https://user-images.githubusercontent.com/66783849/247442135-e60a0d61-a4d6-48a4-97a4-b72845208aad.png"/>
 - CICD를 다음과 같이 구성한다.
   - window 환경을 사용하기에, 명령어를 Powershell에 맞게 구성한다.
   ```yml
