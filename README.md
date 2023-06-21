@@ -170,7 +170,8 @@ C#으로 구성한 sln을 CI/CD를 통해 자동 빌드 및 테스트 하여 배
 - 실제 내용을 수정 후, "Release v0.0.2" 내용을 Commit 한다.  
   <img src="https://user-images.githubusercontent.com/66783849/237281247-78bb568f-ed7f-4c6f-b2a7-2afb734a9c70.png"/>  
   <img src="https://user-images.githubusercontent.com/66783849/237281430-e58d9ea8-ab1a-47bb-8ed5-3d183dd8790e.png"/>  
-  <img src="https://user-images.githubusercontent.com/66783849/237281521-6e321831-7a8d-4806-96bc-924eea70c95e.png"/>  
-- 실제로 Build & Test 후 Release를 하는 모습을 확인할 수 있다.
+- 실제로 Build & Test 후 Release를 하는 모습을 확인할 수 있다.  
   <img src="https://user-images.githubusercontent.com/66783849/237281644-7e44e590-fa48-4c5f-9d2c-c18c48892475.png"/>  
   <img src="https://user-images.githubusercontent.com/66783849/237281680-0f88f29f-eca0-4551-9dd2-89fae06c3b05.png"/>  
+- 최종적으로 Release 됨을 확인할 수 있다.  
+  <img src="https://user-images.githubusercontent.com/66783849/237281521-6e321831-7a8d-4806-96bc-924eea70c95e.png"/>  
