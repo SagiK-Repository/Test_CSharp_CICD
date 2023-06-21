@@ -135,6 +135,7 @@ C#으로 구성한 sln을 CI/CD를 통해 자동 빌드 및 테스트 하여 배
           git log -1 --pretty=%B > message.txt
           echo "::set-output name=message::$(Get-Content message.txt)"
         id: merge_message
+        # 최신 커밋 메시지를 추출하고 output 변수에 저장합니다.
   
       - name: Build and Test
         if: startsWith(steps.merge_message.outputs.message, 'Release')
@@ -142,15 +143,14 @@ C#으로 구성한 sln을 CI/CD를 통해 자동 빌드 및 테스트 하여 배
           cd CSharpTest
           dotnet build CSharpTest.sln
           dotnet test ./UnitTestProject1/UnitTestProject1.csproj
-        # 빌드 및 테스트 실패 시 바로 종료
-        # if: ${{ job.status == 'success' }}
+        # 'Release'로 시작하는 커밋 메시지를 가진 경우에만 빌드 및 테스트를 수행합니다.
   
-      # release 태그로부터 version 정보 추출하여 output으로 설정
       - name: Get Release Version
         if: startsWith(steps.merge_message.outputs.message, 'Release') && job.status == 'success'
         run: |
           echo "::set-output name=version::$(("${{steps.merge_message.outputs.message}}" -replace 'Release ', ''))"
         id: extract_release_version
+        # 'Release'로 시작하는 커밋 메시지를 가지고 성공적으로 빌드되었을 때, 버전 정보를 추출하여 output 변수에 저장합니다.
   
       - name: Create release tag
         if: startsWith(steps.merge_message.outputs.message, 'Release') && job.status == 'success'
@@ -163,7 +163,7 @@ C#으로 구성한 sln을 CI/CD를 통해 자동 빌드 및 테스트 하여 배
           body: ${{ steps.merge_message.outputs.message }}
           draft: false
           prerelease: false
-           
+        # 'Release'로 시작하는 커밋 메시지를 가지고 성공적으로 빌드되었을 때, GitHub에 릴리즈 태그를 생성합니다.
   ```
 
 <br><br>
