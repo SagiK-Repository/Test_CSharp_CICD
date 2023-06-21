@@ -86,7 +86,8 @@ C#으로 구성한 sln을 CI/CD를 통해 자동 빌드 및 테스트 하여 배
   <img src="https://user-images.githubusercontent.com/66783849/237279545-d55ff204-6135-40c3-8233-db3c2d37e495.png"/>  
   <img src="https://user-images.githubusercontent.com/66783849/237279590-07041f5b-d2d8-41c9-b8aa-9515cef6e1d7.png"/>  
 
-* CLI으로도 정상동작하는지 미리 확인한다.  
+* CI/CD는 별도의 환경에서 진행이 됩니다.
+* Window 환경에선 PowerShell을 통해 Build / Test를 CLI로 구성할 수 있습니다.
   ```bash
   # 솔루션 빌드
   docker build project.sln
